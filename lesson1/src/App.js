@@ -5,20 +5,9 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {value: ''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
     console.log("constructor");
   }
 
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    alert('Вы внесли: ' + this.state.value);
-    event.preventDefault();
-  }
   static getDerivedStateFromProps(props, state) {
     console.log("getDerivedStateFromProps()");
     return null;
@@ -45,10 +34,10 @@ class App extends Component {
     console.log("render()");
     return (
     <div className="App">
-    <form onSubmit={this.handleSubmit}>
+    <form onSubmit={(event) => {alert('Вы внесли: ' + this.state.value); event.preventDefault()}}>
       <label>
          Внести данные:
-        <input type="text" value={this.state.value} onChange={this.handleChange} />
+        <input type="text" value={this.state.value} onChange={(event)=> {this.setState({value: event.target.value})}} />
       </label>
       <input type="submit" value="Отправить" />
     </form>
